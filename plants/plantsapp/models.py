@@ -113,26 +113,41 @@ class Plant(models.Model):
 
         verbose_name='Fertilizing interval',
     )
-    required_exposure = models.CharField(
-        max_length=100,
-        default='',
-        verbose_name='Name',
-        help_text='',
-        choices=Room.EXPOSURE_CHOICE,
+
+    EXPOSURE_CHOICE = (
+        ('dark', 'dark'),
+        ('shade', 'shade'),
+        ('partysun', 'part sun'),
+        ('fullsun', 'full sun'),
+    )
+    required_exposure = models.IntegerField(
+        verbose_name='Exposure',
+
+        choices=EXPOSURE_CHOICE,
     )
 
-    required_temperature = models.CharField(
-        max_length=100,
-        default=False,
-        verbose_name='Name',
+    TEMPERATURE_CHOICE = [
+        (1, 'cold'),
+        (2, 'medium'),
+        (3, 'warm'),
+    ]
+
+    required_temperature = models.IntegerField(
+        choices=TEMPERATURE_CHOICE,
+        verbose_name='Temperature',
+        blank=False, null=False,
         help_text='',
     )
 
-    required_humidity = models.CharField(
-        max_length=100,
-        default=False,
-        verbose_name='Name',
-        help_text='',
+    HUMIDITY_CHOICE = [
+        (1, 'low'),
+        (2, 'medium'),
+        (3, 'high'),
+    ]
+
+    required_humidity = models.IntegerField(
+        verbose_name='Humidity',
+        choices = HUMIDITY_CHOICE
     )
     blooming = models.BooleanField(
         default=False, blank=True,
